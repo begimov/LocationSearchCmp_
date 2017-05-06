@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('mapsearch','ItemsController@mapSearch');
+
 Route::get('map','ItemsController@map');
 
 Auth::routes();

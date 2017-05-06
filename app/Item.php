@@ -35,7 +35,7 @@ class Item extends Model
 
     public function scopeDistance($query,$dist,$location)
     {
-        return $query->whereRaw('st_distance(location,POINT('.$location.')) < '.$dist);
+        return $query->whereRaw('st_distance_sphere(location,POINT('.$location.')) < '.$dist);
 
     }
 }
