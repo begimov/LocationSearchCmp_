@@ -9,7 +9,6 @@ class Item extends Model
 {
     protected $geofields = array('location');
 
-
     public function setLocationAttribute($value)
     {
         $this->attributes['location'] = DB::raw("POINT($value)");
@@ -18,9 +17,8 @@ class Item extends Model
     public function getLocationAttribute($value)
     {
         $loc =  substr($value, 6);
-        $loc = preg_replace('/[ ,]+/', ',', $loc, 1);
-
-        return substr($loc, 0, -1);
+        $loc = explode(' ', substr($loc, 0, -1));
+        return $loc;
     }
 
     public function newQuery($excludeDeleted = true)
@@ -29,7 +27,6 @@ class Item extends Model
         foreach ($this->geofields as $column) {
             $raw .= ' astext('.$column.') as '.$column.' ';
         }
-
         return parent::newQuery($excludeDeleted)->addSelect('*', DB::raw($raw));
     }
 

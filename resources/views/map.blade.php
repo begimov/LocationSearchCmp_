@@ -60,13 +60,11 @@
           var i
           var marker
           var store
-          var storeArr
           if (response.length !== 0) {
             for (i = 0; i < response.length; i++) {
               store = response[i]
-              storeArr = store.location.split(',')
               marker = new google.maps.Marker({
-                position: new google.maps.LatLng(storeArr[0], storeArr[1]),
+                position: new google.maps.LatLng(store.location[0], store.location[1]),
                 map: map
               });
             }

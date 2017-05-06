@@ -12,12 +12,10 @@ class ItemsController extends Controller
         // TODO: Validation for lat and lng
         $lat = $request->lat;
         $lng = $request->lng;
+        // \DB::enableQueryLog();
         $items = Item::distance(10000,"{$lat},{$lng}")->get();
-        // $items = Item::distance(10000,'45.05,7.6667')->get();
-
-        return $items;
-
-        // return view('map')->with(['items'=>$items]);
+        // dd(\DB::getQueryLog());
+        return $items->toArray();
     }
 
     public function map()
