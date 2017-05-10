@@ -60,13 +60,25 @@
           var i
           var marker
           var store
+          var infoMarkup = []
+
           if (response.length !== 0) {
             for (i = 0; i < response.length; i++) {
               store = response[i]
+
+              infoMarkup.push('<div><strong>' + store.title + '</strong><p>' + store.created_at + '</p></div>');
+
               marker = new google.maps.Marker({
                 position: new google.maps.LatLng(store.location[0], store.location[1]),
                 map: map
               });
+
+              google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                return function () {
+                  infoWindow.setContent('<div>' + infoMarkup[i] + '</div>')
+                  infoWindow.open(map, marker)
+                }
+              })(marker, i))
             }
           }
         })
